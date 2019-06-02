@@ -1,7 +1,19 @@
 [package]
-name = "tensorflow-microlite-bluepill-sys"
+name = "tensorflow-lite-sys"
 version = "0.1.0"
 authors = ["Jacob Rosenthal <jacobrosenthal@gmail.com>"]
 edition = "2018"
 
-links = "tensorflow-microlite-bluepill-sys"
+links = "tensorflow-lite-sys"
+
+[dependencies]
+cty = "0.2.0"
+
+[dev-dependencies]
+cortex-m = "0.6.0"
+cortex-m-rt = "0.6.8"
+panic-halt = "0.2.0"
+
+[dev-dependencies.stm32f1xx-hal]
+version = "0.3.0"
+features = ["stm32f100", "rt"]
