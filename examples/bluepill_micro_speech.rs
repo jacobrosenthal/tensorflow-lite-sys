@@ -3,11 +3,7 @@
 
 extern crate panic_halt;
 
-use tensorflow_lite_sys::tflite::{
-    ops::micro::AllOpsResolver, ErrorReporter, FeatureProvider, GetModel, LatestAudioTimestamp,
-    MicroErrorReporter, MicroInterpreter, Model, RecognizeCommands, RespondToCommand,
-    SimpleTensorAllocator, TfLiteStatus, TfLiteTensor,
-};
+// use tensorflow_lite_sys::TfLiteTensor;
 
 use cortex_m_rt::entry;
 use stm32f1xx_hal::{delay::Delay, pac, prelude::*};
