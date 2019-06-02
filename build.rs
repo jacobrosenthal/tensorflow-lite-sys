@@ -1,4 +1,5 @@
 use std::env;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
@@ -116,13 +117,20 @@ fn main() {
         .status()
         .expect("failed to build tensorflow");
 
+    // copy instead of link in place?
+    let outdir = PathBuf::from(env::var("OUT_DIR").unwrap());
+    fs::copy(
+        tflite_src_dir
+        .join("tensorflow/lite/experimental/micro/tools/make/gen/bluepill_cortex-m3/lib/libtensorflow-microlite.a"),
+        outdir.clone().join("libtensorflow-microlite.a")
+        )
+    .expect("Unable to copy libtensorflow-microlite.a");
+
     println!("cargo:rustc-link-lib=static=tensorflow-microlite");
-    println!(
-        "cargo:rustc-link-search={}",
-        Path::new(&tflite_src_dir)
-            .join("tensorflow/lite/experimental/micro/tools/make/gen/bluepill_cortex-m3/lib")
-            .display()
-    );
+    println!("cargo:rustc-link-search={}", Path::new(&outdir).display());
 
     generate_bindings(tflite_src_dir);
+
+    println!("cargo:rerun-if-changed=build.rs");
+    println!("cargo:rerun-if-changed=wrapper.h");
 }

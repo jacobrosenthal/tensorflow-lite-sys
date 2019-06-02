@@ -3,7 +3,10 @@
 
 extern crate panic_halt;
 
-// use tensorflow_lite_sys::TfLiteTensor;
+extern crate tensorflow_lite_sys as tensorflow;
+
+use tensorflow::TfLiteDelegate;
+use tensorflow::TfLiteRegistration;
 
 use cortex_m_rt::entry;
 use stm32f1xx_hal::{delay::Delay, pac, prelude::*};
